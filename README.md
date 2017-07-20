@@ -14,11 +14,11 @@ allowing the robot to modify its posture so that its manipulability ellipsoid co
 ### Code description
 
 	- demo_ManipulabilityTransfer01
-		This code shows how a robot can exploit its redundancy to modify its manipulability so that it matches, 
-		as close as possible, a desired manipulability ellipsoid (possibly obtained from another robot or a human).
-		The approach evaluates a cost function that measures the similarity between manipulabilities and computes
-		a nullspace velocity command designed to change the robot posture so that its manipulability ellipsoid
-		becomes more similar to the desired one. The user can:
+		This code shows how a robot can exploit its redundancy to modify its manipulability so that it
+		matches, as close as possible, a desired manipulability ellipsoid (possibly obtained from another
+		robot or a human). The approach evaluates a cost function that measures the similarity between
+		manipulabilities and computes a nullspace velocity command designed to change the robot posture
+		so that its manipulability ellipsoid becomes more similar to the desired one. The user can:
 
 		1. Define the number of states of the model
 		2. Choose two different cost functions to be minimized through redundancy resolution
@@ -26,20 +26,22 @@ allowing the robot to modify its posture so that its manipulability ellipsoid co
 		
 
 	- demo_ManipulabilityTransfer02
-		This code shows how a robot learns to follow a desired Cartesian trajectory while modifying its joint 
-		configuration to match a desired profile of manipulability ellipsoids over time. The learning framework
-		is built on two GMMs, one for encoding the demonstrated Cartesian trajectories, and the other one for
-		encoding the profiles of manipulability ellipsoids observed during the demonstrations. The former is a
-		classic GMM, while the latter is a GMM that relies on an SPD-matrices manifold formulation. 
+		This code shows how a robot learns to follow a desired Cartesian trajectory while modifying its
+		joint configuration to match a desired profile of manipulability ellipsoids over time. The
+		learning framework is built on two GMMs, one for encoding the demonstrated Cartesian trajectories,
+		and the other one for encoding the profiles of manipulability ellipsoids observed during the
+		demonstrations. The former is a classic GMM, while the latter is a GMM that relies on an
+		SPD-matrices manifold formulation. 
 		
-		The demonstrations are generated with a 3-DoFs planar robot that follows a set of Cartesian trajectories. 
-		The reproduction is carried out by a 5-DoFs planar robot. The user can:
+		The demonstrations are generated with a 3-DoFs planar robot that follows a set of Cartesian
+		trajectories. The reproduction is carried out by a 5-DoFs planar robot. The user can:
 
 		1. Define the number of states of the models
 		2. Define the number of iterations for the nullspace redundancy resolution
 		3. Choose two different cost functions to be minimized through redundancy resolution
 		4. Set the gradient step
-		5. Modify the robots (teacher or student) kinematics by using the Robotics Toolbox functionalities
+		5. Modify the robots (teacher or student) kinematics by using the Robotics Toolbox
+		functionalities
 		
 		
 	- demo_ManipulabilityTransfer02b
@@ -51,13 +53,14 @@ allowing the robot to modify its posture so that its manipulability ellipsoid co
 		2. Define the number of iterations for the nullspace redundancy resolution
 		3. Choose two different cost functions to be minimized through redundancy resolution
 		4. Set the gradient step
-		5. Modify the robots (teacher or student) kinematics by using the Robotics Toolbox functionalities
+		5. Modify the robots (teacher or student) kinematics by using the Robotics Toolbox
+		functionalities
 		
 
 ### References  
 	
-	[1] Rozo, L., Jaquier, N. Calinon, S. and Caldwell, D. (2017). Learning Manipulability Ellipsoids for Task Compatibility 
-	in Robot Manipulation. IEEE Intl. Conf. on Intelligent Robots and Systems (IROS).	
+	[1] Rozo, L., Jaquier, N. Calinon, S. and Caldwell, D. (2017). Learning Manipulability Ellipsoids for
+	Task Compatibility in Robot Manipulation. IEEE Intl. Conf. on Intelligent Robots and Systems (IROS).	
 
 ### Authors
 
@@ -65,8 +68,8 @@ allowing the robot to modify its posture so that its manipulability ellipsoid co
 	http://leonelrozo.weebly.com/
 	http://programming-by-demonstration.org/
 		
-	This source code is given for free! In exchange, we would be grateful if you cite the following reference in any 
-	academic publication that uses this code or part of it:
+	This source code is given for free! In exchange, we would be grateful if you cite the following
+	reference in any academic publication that uses this code or part of it:
 
 	@article{Rozo17IROS, 
 	  author 	= "Rozo, L. and Jaquier, N. and Calinon, S. and Caldwell, D. G.",
@@ -74,6 +77,6 @@ allowing the robot to modify its posture so that its manipulability ellipsoid co
 	  booktitle 	= "Intl. Conf. on Intelligent Robots and Systems ({IROS})",
 	  year   	= "2017",
 	  month  	= "September",
-	  pages  	= "", 
+	  pages  	= "" 
 	}
 
