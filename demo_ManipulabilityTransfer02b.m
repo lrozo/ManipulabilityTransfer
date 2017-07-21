@@ -355,7 +355,14 @@ for t=1:nbData
     Jt = robotS.jacob0(qt); % Current Jacobian
     Jt = Jt(1:2,:);
     Htmp = robotS.fkine(qt); % Forward Kinematics
-    xt = Htmp(1:2,end);
+    
+    % Compatibility with 9.X and 10.X versions of robotics toolbox
+    if isobject(Htmp) % SE3 object verification
+      xt = Htmp.t(1:2);
+    else
+      xt = Htmp(1:2,end);
+    end
+  
     rbtS.pos = [rbtS.pos xt];
     
     % Evaluating cost gradient for current joint configuration

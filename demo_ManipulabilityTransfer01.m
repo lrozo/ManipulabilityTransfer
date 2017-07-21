@@ -101,7 +101,13 @@ while( it < nbIter )
 	Jt = robot.jacob0(qt); % Current Jacobian
   Jt = Jt(1:2,:);
 	Htmp = robot.fkine(qt); % Forward Kinematics (needed for plots)
-	xt = Htmp(1:2,end);
+  
+  % Compatibility with 9.X and 10.X versions of robotics toolbox
+  if isobject(Htmp) % SE3 object verification
+    xt = Htmp.t(1:2);
+  else
+    xt = Htmp(1:2,end);
+  end
 	
 	% Evaluating gradient at current configuration
   Cgrad_t = Cgrad(qt(1),qt(2),qt(3),qt(4));
