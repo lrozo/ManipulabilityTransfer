@@ -71,8 +71,7 @@ nbDOFt = nbDOFs+2; % Nb of degrees of freedom for student robot
 armLength = 4;
 L1 = Link('d', 0, 'a', armLength, 'alpha', 0);
 robotT = SerialLink(repmat(L1,nbDOFs,1)); % Robot teacher
-robotS = SerialLink(repmat(L1,nbDOFs+2,1)); % Robot student
-maskPlanarRbt = [ 1 1 0 0 0 0 ]; % Mask matrix for a 3-DoFs robots for position (x,y)
+robotS = SerialLink(repmat(L1,nbDOFt,1)); % Robot student
 q0T = [-pi/2 0.0 pi/3]; % Initial robot configuration
 
 
