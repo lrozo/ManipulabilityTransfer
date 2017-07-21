@@ -72,8 +72,7 @@ armLength = 4;
 L1 = Link('d', 0, 'a', armLength, 'alpha', 0);
 robotT = SerialLink(repmat(L1,nbDOFs,1)); % Robot teacher
 robotS = SerialLink(repmat(L1,nbDOFs+2,1)); % Robot student
-maskT = [ ones(1,nbDOFs) zeros(1,6-nbDOFs) ]; % Mask matrix for a 3-DoFs robots (x,y,z)
-maskS = [ ones(1,nbDOFt) zeros(1,6-nbDOFt) ]; % Mask matrix for a 5-DoFs robots (x,y,z)
+maskPlanarRbt = [ 1 1 0 0 0 0 ]; % Mask matrix for a 3-DoFs robots for position (x,y)
 q0T = [-pi/2 0.0 pi/3]; % Initial robot configuration
 
 
@@ -106,8 +105,16 @@ if(needsLearning)
 
     % Obtain robot configurations for the current demo given initial robot pose q0
     T = transl([s(n).Data(1:2,:) ; zeros(1,nbData)]');
-    q = robotT.ikine(T, q0T', maskT)'; % Based on an initial pose
-
+    
+    % One way to check robotics toolbox version
+    if isobject(robotT.fkine(q0T)) % 10.X 
+      maskPlanarRbt = [ 1 1 0 0 0 0 ]; % Mask matrix for a 3-DoFs robots for position (x,y)
+      q = robotT.ikine(T, q0T', 'mask', maskPlanarRbt)'; % Based on an initial pose
+    else % 9.X
+      maskPlanarRbt = [ 1 1 1 0 0 0 ]; 
+      q = robotT.ikine(T, q0T', maskPlanarRbt)'; % Based on an initial pose
+    end
+  
     % Computing force/velocity manipulability ellipsoids, that will be later
     % used for encoding a GMM in the force/velocity manip. ellip. manifold
     for t = 1 : nbData

@@ -35,7 +35,7 @@ nbIter = 10; % Number of iteration for the Gauss Newton algorithm (Riemannian ma
 epsilon = 1E-4; % 
 nbIterEM = 10; % Number of iteration for the EM algorithm
 letter = 'C'; % Letter to use as dataset for demonstration data
-typeCost = 2; % Type of cost function for manipulability transfer
+typeCost = 1; % Type of cost function for manipulability transfer
 
 switch typeCost
   case 1
@@ -75,9 +75,6 @@ armLength = 5; % For C
 L1 = Link('d', 0, 'a', armLength, 'alpha', 0);
 robotT = SerialLink(repmat(L1,nbDOFs,1)); % Robot teacher
 robotS = SerialLink(repmat(L1,nbDOFs+2,1)); % Robot student
-maskT = [ ones(1,nbDOFs) zeros(1,6-nbDOFs) ]; % Mask matrix for a 3-DoFs robots (x,y,z)
-maskS = [ ones(1,nbDOFt) zeros(1,6-nbDOFt) ]; % Mask matrix for a 5-DoFs robots (x,y,z)
-q0T = [-pi/2 0.0 pi/3]; % Initial robot configuration
 q0T = [pi/4 0.0 -pi/9]; % Initial robot configuration
 
 
@@ -105,7 +102,16 @@ for n=1:nbSamples
 
   % Obtain robot configurations for the current demo given initial robot pose q0
   T = transl([s(n).Data(1:2,:) ; zeros(1,nbData)]');
-  q = robotT.ikine(T, q0T', maskT)'; % Based on an initial pose
+  
+  % One way to check robotics toolbox version
+  if isobject(robotT.fkine(q0T))  % 10.X 
+    maskPlanarRbt = [ 1 1 0 0 0 0 ];  % Mask matrix for a 3-DoFs robots for position (x,y)
+    q = robotT.ikine(T, q0T', 'mask', maskPlanarRbt)';  % Based on an initial pose
+  else  % 9.X
+    maskPlanarRbt = [ 1 1 1 0 0 0 ]; 
+    q = robotT.ikine(T, q0T', maskPlanarRbt)'; % Based on an initial pose
+  end
+  
   s(n).q = q; % Storing joint values 
 
   % Computing force/velocity manipulability ellipsoids, that will be later
